@@ -332,6 +332,8 @@ class ActiveRecord::Base
       puts "values_of_sql_for_columns_and_attributes"
       puts "array_of_attributes = #{array_of_attributes}"
 
+      byebug
+      
       connection_memo = connection
       array_of_attributes.map do |arr|
         my_values = arr.each_with_index.map do |val,j|
@@ -339,8 +341,10 @@ class ActiveRecord::Base
 
           # be sure to query sequence_name *last*, only if cheaper tests fail, because it's costly
           if val.nil? && column.name == primary_key && !sequence_name.blank?
+            puts "if is true"
              connection_memo.next_value_for_sequence(sequence_name)
           else
+            puts "if is not true"
             if serialized_attributes.include?(column.name)
               connection_memo.quote(serialized_attributes[column.name].dump(val), column)
             else
