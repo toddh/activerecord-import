@@ -331,8 +331,6 @@ class ActiveRecord::Base
 
       puts "values_of_sql_for_columns_and_attributes"
       puts "array_of_attributes = #{array_of_attributes}"
-
-      byebug
       
       connection_memo = connection
       array_of_attributes.map do |arr|
