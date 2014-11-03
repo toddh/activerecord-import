@@ -210,6 +210,11 @@ class ActiveRecord::Base
          array_of_attributes.each { |a| a << nil }
       end
 
+
+      puts "Column_names = #{column_names}"
+      puts "Primary_key = #{primary_key}"
+      puts "array_of_attributes = #{array_of_attributes}"
+
       # record timestamps unless disabled in ActiveRecord::Base
       if record_timestamps && options.delete( :timestamps )
          add_special_rails_stamps column_names, array_of_attributes, options
@@ -323,6 +328,10 @@ class ActiveRecord::Base
     def values_sql_for_columns_and_attributes(columns, array_of_attributes)   # :nodoc:
       # connection gets called a *lot* in this high intensity loop.
       # Reuse the same one w/in the loop, otherwise it would keep being re-retreived (= lots of time for large imports)
+
+      puts "values_of_sql_for_columns_and_attributes"
+      puts "array_of_attributes = #{array_of_attributes}"
+
       connection_memo = connection
       array_of_attributes.map do |arr|
         my_values = arr.each_with_index.map do |val,j|
